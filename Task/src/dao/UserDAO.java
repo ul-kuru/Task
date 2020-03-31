@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,10 +11,7 @@ import model.RegisterInfo;
 import model.User;
 
 public class UserDAO {
-	//データベース接続情報
-	private final String JDBC_URL = "jdbc:mysql://localhost:3306/task?serverTimezone=JST";
-	private final String DB_USER = "root";
-	private final String DB_PASS = "Ulkuru3396yuuki";
+
 
 	public User findByLogin(LoginInfo loginInfo) throws Exception{
 		User user = null;
@@ -24,7 +20,7 @@ public class UserDAO {
 		try {
 			//DB接続
 			Class.forName( "com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(JDBC_URL,DB_USER,DB_PASS);
+			conn = ConnectionFactory.createConnection();
 
 			//SELECT文
 			String sql = "SELECT user_id, pass, mail, user_name, created_at FROM user WHERE user_id = ? AND pass = ?";
@@ -68,7 +64,7 @@ public class UserDAO {
 		try {
 			//DB接続
 			Class.forName( "com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection(JDBC_URL,DB_USER,DB_PASS);
+			conn = ConnectionFactory.createConnection();
 
 			//ユーザー情報
 			String userId = registerInfo.getUserId();
