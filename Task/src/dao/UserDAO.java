@@ -71,7 +71,6 @@ public class UserDAO {
 			String pass = registerInfo.getPass();
 			String mail = registerInfo.getMail();
 			String userName = registerInfo.getUserName();
-			Timestamp createdAt = registerInfo.getCreatedAt();
 
 
 			//INSERT文
@@ -81,12 +80,11 @@ public class UserDAO {
 			pStmt.setString(2,pass);
 			pStmt.setString(3,mail);
 			pStmt.setString(4,userName);
-			pStmt.setTimestamp(5,createdAt);
 
 			int result = pStmt.executeUpdate();
 			if (result != 0) {
 				//戻り値のUserインスタンス生成
-				user = new User(userId,pass,mail,userName,createdAt);
+				user = new User(userId,pass,mail,userName);
 				return user;
 			}else {return null;}
 

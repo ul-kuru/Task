@@ -42,8 +42,8 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userId", userId);
 			session.setAttribute("userName", resultUser.getUserName());
 
-			//メイン画面にフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+			//メインサーブレットにフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/MainServlet");
 			dispatcher.forward(request, response);
 		}else {//ログイン失敗時
 			//リダイレクト

@@ -14,4 +14,11 @@ public class RegisterInfo {
 	private String userName;
 	private Timestamp createdAt;
 
+	public RegisterInfo(String userId, String pass, String mail, String userName) {
+		this.userId = userId;
+		this.pass = pass;
+		this.mail = mail;
+		this.userName = userName;
+	}
+
 }

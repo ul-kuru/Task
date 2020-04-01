@@ -20,4 +20,12 @@ public class User implements Serializable {
 	private String mail;
 	private String userName;
 	private Timestamp createdAt;
+
+	public User(String userId, String pass, String mail, String userName) {
+		this.userId = userId;
+		this.pass = pass;
+		this.mail = mail;
+		this.userName = userName;
+	}
+
 }

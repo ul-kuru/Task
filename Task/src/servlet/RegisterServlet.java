@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,10 +40,9 @@ public class RegisterServlet extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String mail = request.getParameter("pass");
 		String userName = request.getParameter("userName");
-		Timestamp createdAt = new Timestamp(System.currentTimeMillis());//作成日時を記録
 
 		//登録情報作成
-		RegisterInfo registerInfo = new RegisterInfo(userId, pass, mail, userName, createdAt);
+		RegisterInfo registerInfo = new RegisterInfo(userId, pass, mail, userName);
 
 		//登録実行
 		RegisterLogic registerLogic = new RegisterLogic();
@@ -56,8 +54,8 @@ public class RegisterServlet extends HttpServlet {
 			session.setAttribute("userId", userId);
 			session.setAttribute("userName", userName);
 
-			//メイン画面へフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
+			//メインサーブレットへフォワード
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/MainServlet");
 			dispatcher.forward(request, response);
 		}
 	}

@@ -13,11 +13,12 @@ import javax.servlet.http.HttpSession;
 
 import model.DisplayQuestsLogic;
 import model.Quest;
+import model.SearchQuestsLogic;
 
 /**
  * Servlet implementation class Main
  */
-@WebServlet("/Main")
+@WebServlet("/MainServlet")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,19 +26,30 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//既存のクエストIDでリストを作成
-		ArrayList<Integer> questIds = new ArrayList<Integer>();
-		questIds.add(00000001);
-		questIds.add(00000002);
-
+		// userIdをセッションから取得してリストquestIdsを生成
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		SearchQuestsLogic searchQuestsLogic = new SearchQuestsLogic();
+		ArrayList<Integer> questIds = searchQuestsLogic.searchByUserId(userId);
+		assert questIds != null;
+		// リスト中のクエストを表示
 		DisplayQuestsLogic displayQuestsLogic = new DisplayQuestsLogic();
 		ArrayList<Quest> quests = displayQuestsLogic.execute(questIds);
+		assert quests != null;
 
-			HttpSession session = request.getSession();
 			session.setAttribute("quests", quests);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/main.jsp");
 			dispatcher.forward(request, response);
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
 
 }
